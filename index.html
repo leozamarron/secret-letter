@@ -1,1 +1,124 @@
-<p1>Hola mundo</p1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@300;400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.5.3/lottie_svg.min.js"></script>
+    <title>Regalo para mi niña preciosa</title>
+    <link rel="icon" href="icons/tab-icon.png"/>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body style="font-family: 'Comic Neue';" class="relative">
+
+    <!-- MUSIC PLAYER -->
+    <div class="fixed left-6 bottom-6 z-10">
+        <div class="music-container relative bg-neutral-100 py-3 px-3 border-2 z-10 rounded-md border-black flex items-center">
+            <div class="toggle-player bg-neutral-100 border-2 border-black">
+                <img class="w-full" src="icons/close.svg" alt="">
+            </div>
+            <div class="avatar absolute w-14">
+                <img class="w-full border-2 bg-white border-black rounded-md" src="icons/pinkheart.svg" alt="">
+            </div>
+            <div class="player">
+                <div class="sound-bars-lottie">
+                    <div class="sound-bars"></div>
+                </div>
+                <div class="track-info -space-y-1">
+                    <div class="trackname">Only</div>
+                    <div class="trackartist">Track Artist</div>
+                </div>
+                <div class="track-nav">
+                    <div class="prev-track">
+                        <img class="w-7" src="icons/backplayer.svg" alt="">
+                    </div>
+                    <div class="playpause-track">
+                        <img class="w-8" src="icons/play.svg" alt="">
+                    </div>
+                    <div class="next-track">
+                        <img class="w-7" style="transform: rotate(180deg);" src="icons/backplayer.svg" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BACKGROUND -->
+    <div class="background">
+        <div class="one">
+            <div class="container">
+                <div class="envelope-wrapper">
+                    <div class="envelope">
+                        <div class="letter">
+                            <div class="text">
+                                <strong style="font-size: .89rem;">Lucía,</strong>
+                                <p>
+                                    Feliz aniversario de 3 meses, mi amor. Soy muy afortunado por tenerte a mí lado. Eres la persona más increíble del mundo, y cada día me enamoro más de ti. Me encanta todo de ti, tu sonrisa, tu boca tan hermosa, la manera en que siempre sabes cómo hacerme sentir especial. Tu amor y tu apoyo significan más de lo que imaginas, y no hay un solo día en el que no agradezca por tenerte en mi vida. Te amo con todo mi corazón y siempre te amaré.
+                                </p>
+                                <p class="love">Te amo mucho mi amor</p>
+                                <div class="pana">
+                                    <img src="icons/heartarrow.svg" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="heart"></div>
+                </div>
+        </div>
+    </div>
+    <div class="w-full h-[100vh] z-0 relative">
+        <!-- BACKGROUND -->
+    <div class="absolute top-0 w-full h-full flex justify-center items-center">
+        <!-- COUNTER -->
+        <div class="flex bg-neutral-100 gap-5 relative border-2 z-10 border-black flex-col px-5 pb-3 shadow-md pt-9 rounded-md">
+            <!-- GIFS -->
+            <div class="absolute top-1 right-1 w-7">
+                <img class="w-full" src="icons/heart.svg" alt="">
+            </div>
+            <div class="absolute -top-20 -left-56 w-44">
+                <img class="w-full -rotate-6" src="https://media.tenor.com/dg7Th23TzFUAAAAi/cat_-vodk.gif" alt="">
+            </div>
+            <div class="absolute -bottom-3 -right-52 w-44">
+                <img class="w-full" src="https://media.tenor.com/LrSL7XDKVbgAAAAi/peachcat-cat.gif" alt="">
+            </div>
+            <div class="absolute top-[-8rem] z-0 right-28 w-36">
+                <img class="w-full" src="https://media.tenor.com/A5VhCveZ_ygAAAAi/peach-and-goma-peach-goma.gif" alt="">
+            </div>
+            <div class="absolute -bottom-48 z-0 left-16 w-40">
+                <img class="w-full" src="https://media.tenor.com/ewJrc9fZeaQAAAAi/prots-masaj.gif" alt="">
+            </div>
+
+            <!-- DATE COUNTER -->
+            <div class="flex gap-5" id="myCountdown">
+                <div class="bg-transparent border-2 border-black rounded-md w-40 h-52 flex justify-center items-center flex-col gap-10">
+                    <h1 id="years" class="text-6xl font-bold">0</h1>
+                    <p class="font-bold text-xl text-red-700">Año
+                    </p>
+                </div>
+                <div class="bg-transparent border-2 border-black rounded-md w-40 h-52 flex justify-center items-center flex-col gap-10">
+                    <h1 id="months" class="text-6xl font-bold">0</h1>
+                    <p class="font-bold text-xl text-red-700">Mes</p>
+                </div>
+                <div class="bg-transparent border-2 border-black rounded-md w-40 h-52 flex justify-center items-center flex-col gap-10">
+                    <h1 id="days" class="text-6xl font-bold">0</h1>
+                    <p class="font-bold text-xl text-red-700">Día</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const envelope = document.querySelector('.envelope-wrapper');
+        envelope.addEventListener('click', () => {
+            envelope.classList.toggle('flap');
+            envelope.classList.toggle('open');
+        });
+    </script>
+    
+    <script src="app.js"></script> 
+</body>
+</html>
+
