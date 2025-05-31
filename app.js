@@ -101,6 +101,45 @@ function loadTrack(trackIndex){
 
 loadTrack(trackIndex);
 
+function updateAnniversaryCounter() {
+    const anniversary = new Date("2024-12-11");
+    const today = new Date();
+
+    // Calcular diferencia en milisegundos
+    const diffTime = today.getTime() - anniversary.getTime();
+
+    // Calcular diferencia exacta en días
+    const diffDate = new Date(diffTime);
+
+    // Cálculo más preciso de años, meses, días
+    let years = today.getFullYear() - anniversary.getFullYear();
+    let months = today.getMonth() - anniversary.getMonth();
+    let days = today.getDate() - anniversary.getDate();
+
+    if (days < 0) {
+        months--;
+        let prevMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+        days += prevMonth.getDate();
+    }
+
+    if (months < 0) {
+        years--;
+        months += 12;
+    }
+
+    // Actualizar el contenido del DOM
+    document.getElementById("days").textContent = days;
+    document.getElementById("months").textContent = months;
+    document.getElementById("years").textContent = years;
+}
+
+
+updateAnniversaryCounter();
+
+
+setInterval(updateAnniversaryCounter, 1000 * 60 * 60 * 24); // Cada 24h
+
+
 function playPauseTrack(){
     if(isPlaying == false){
         playTrack();
