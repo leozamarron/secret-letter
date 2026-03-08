@@ -174,6 +174,7 @@ function nextTrack(){
     } 
 }
 
+
 function prevTrack(){
     if(trackIndex > 0){
         trackIndex -= 1;
@@ -184,4 +185,22 @@ function prevTrack(){
         loadTrack(trackIndex);
         playTrack();
     }
+}
+
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+        playPauseTrack,
+        playTrack,
+        pauseTrack,
+        nextTrack,
+        prevTrack,
+        loadTrack,
+        // We export functions that wrap state if needed, or just the state itself
+        getIsPlaying: () => isPlaying,
+        setIsPlaying: (val) => { isPlaying = val; },
+        getCurrentTrack: () => currentTrack,
+        getTrackIndex: () => trackIndex,
+        setTrackIndex: (val) => { trackIndex = val; },
+        trackList
+    };
 }
