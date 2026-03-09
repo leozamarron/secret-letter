@@ -1,0 +1,30 @@
+<style>
+.track-info {
+  width: 150px;
+  overflow: hidden;
+  border: 1px solid black;
+}
+.trackname-wrapper {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.trackname {
+  display: inline-block;
+  animation: marquee 8s linear infinite;
+  padding-left: 100%;
+  /* Force a translation for the screenshot */
+  transform: translateX(-50%);
+}
+/*
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+*/
+</style>
+<div class="track-info">
+  <div class="trackname-wrapper">
+    <div class="trackname">Please don't change</div>
+  </div>
+</div>
