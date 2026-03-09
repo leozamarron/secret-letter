@@ -64,7 +64,7 @@ body {
   content: "";
   position: absolute;
   top: 0;
-  z-index: 2;
+  z-index: 3;
   width: 0;
   height: 0;
   box-sizing: content-box;
@@ -72,13 +72,13 @@ body {
   border-right: calc(var(--env-width) / 2) solid transparent;
   border-left: calc(var(--env-width) / 2) solid transparent;
   transform-origin: top;
-  transition: all 0.5s ease-in-out 0.7s;
+  transition: all 0.5s ease-in-out 0.2s;
 }
 
 .envelope-wrapper > .envelope::after {
   content: "";
   position: absolute;
-  z-index: 2;
+  z-index: 3;
   width: 0px;
   height: 0px;
   box-sizing: content-box;
@@ -100,12 +100,14 @@ body {
   transition: all 1s ease-in-out;
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
   padding: 16px;
+  padding-bottom: 40px;
   border-radius: 8px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   pointer-events: none;
+  z-index: 2; /* Letter is behind front cover but inside envelope */
 }
 
 .envelope > .letter > .text {
@@ -119,6 +121,7 @@ body {
   .envelope > .letter > .text {
     font-size: 9px;
     padding: 0px;
+    padding-bottom: 25px;
     line-height: 1.4;
   }
 }
@@ -156,22 +159,23 @@ body {
 /* Flap Open States */
 .flap > .envelope:before {
   transform: rotateX(180deg);
-  z-index: 0;
+  z-index: 1; /* Keep it behind the letter but behind the envelope cover when open */
+  transition: all 0.5s ease-in-out; /* opens fast */
 }
 
 .flap > .envelope > .letter {
   bottom: calc(var(--env-height) * 0.85);
   transform: scale(1.4);
-  transition-delay: 1s;
-  z-index: 10;
+  transition-delay: 0.5s; /* Wait for flap to open before coming out */
+  z-index: 2; /* Slide out from inside the envelope (which is z-index 3) */
   overflow-y: auto;
   pointer-events: auto;
 }
 
 @media (max-width: 600px) {
   .flap > .envelope > .letter {
-    bottom: calc(var(--env-height) * 1.05);
-    transform: scale(1.25);
+    bottom: calc(var(--env-height) * 0.65); /* Keeps it on-screen and lower */
+    transform: scale(1.2);
   }
 }
 
@@ -318,7 +322,7 @@ body {
 }
 
 @keyframes marquee {
-  0%   { transform: translateX(100%); }
+  0%   { transform: translateX(0); }
   100% { transform: translateX(-100%); }
 }
 .trackname {
