@@ -1,0 +1,11 @@
+127.0.0.1 - - [09/Mar/2026 02:25:49] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [09/Mar/2026 02:25:49] "GET /icons/pinkheart.svg HTTP/1.1" 200 -
+127.0.0.1 - - [09/Mar/2026 02:25:49] "GET /icons/close.svg HTTP/1.1" 200 -
+127.0.0.1 - - [09/Mar/2026 02:25:49] "GET /style.css HTTP/1.1" 200 -
+127.0.0.1 - - [09/Mar/2026 02:25:49] "GET /icons/backplayer.svg HTTP/1.1" 200 -
+127.0.0.1 - - [09/Mar/2026 02:25:49] "GET /icons/play.svg HTTP/1.1" 200 -
+127.0.0.1 - - [09/Mar/2026 02:25:49] "GET /app.js HTTP/1.1" 200 -
+127.0.0.1 - - [09/Mar/2026 02:25:49] "GET /icons/heartarrow.svg HTTP/1.1" 200 -
+127.0.0.1 - - [09/Mar/2026 02:25:49] "GET /icons/heart.svg HTTP/1.1" 200 -
+127.0.0.1 - - [09/Mar/2026 02:25:49] "GET /music/please%20don't%20change.mp3 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Mar/2026 02:25:50] "GET /icons/plus.svg HTTP/1.1" 200 -

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,114 +12,112 @@
     <link rel="icon" href="icons/tab-icon.png"/>
     <link rel="stylesheet" href="./style.css">
 </head>
-<body style="font-family: 'Comic Neue';" class="relative">
+<body class="w-full min-h-screen overflow-x-hidden flex flex-col items-center pb-24 relative">
 
-    <!-- MUSIC PLAYER -->
-    <div class="fixed left-6 bottom-6 z-10">
-        <div class="music-container relative bg-neutral-100 py-3 px-3 border-2 z-10 rounded-md border-black flex items-center">
-            <div class="toggle-player bg-neutral-100 border-2 border-black">
-                <img class="w-full" src="icons/close.svg" alt="">
+    <!-- MUSIC PLAYER (Fixed to bottom) -->
+    <div class="fixed left-0 sm:left-6 bottom-4 sm:bottom-6 w-full sm:w-auto px-4 sm:px-0 z-[100] flex justify-center pointer-events-none">
+        <div class="music-container relative bg-white/40 py-3 px-3 border border-white/60 z-10 rounded-2xl backdrop-blur-md shadow-[0_8px_32px_0_rgba(31,38,135,0.07)] flex items-center pointer-events-auto w-full sm:max-w-md mx-auto">
+            <div class="toggle-player bg-white/60 border border-white/80 flex justify-center items-center shadow-sm backdrop-blur-sm rounded-full">
+                <img class="w-full opacity-80" src="icons/close.svg" alt="">
             </div>
-            <div class="avatar absolute w-14">
-                <img class="w-full border-2 bg-white border-black rounded-md" src="icons/pinkheart.svg" alt="">
+            <div class="avatar relative sm:absolute sm:left-3 w-12 sm:w-14 flex-shrink-0 z-50">
+                <img class="w-full border-2 border-white/80 bg-white/50 rounded-xl shadow-sm backdrop-blur-sm" src="icons/pinkheart.svg" alt="">
             </div>
-            <div class="player">
-                <div class="sound-bars-lottie">
+            <div class="player flex-grow flex justify-end items-center pl-2 sm:pl-16">
+                <div class="sound-bars-lottie hidden sm:block absolute top-3 left-[4.5rem]">
                     <div class="sound-bars"></div>
                 </div>
-                <div class="track-info -space-y-1">
-                    <div class="trackname">Only</div>
-                    <div class="trackartist">Track Artist</div>
+                <div class="track-info flex-grow flex flex-col items-start justify-center overflow-hidden px-2 relative z-0">
+                    <div class="trackname-wrapper w-full overflow-hidden whitespace-nowrap">
+                        <div class="trackname text-sm sm:text-lg font-bold text-gray-800 drop-shadow-sm">Only</div>
+                    </div>
+                    <div class="trackartist text-xs text-gray-600 truncate drop-shadow-sm">Track Artist</div>
                 </div>
-                <div class="track-nav">
-                    <div class="prev-track">
-                        <img class="w-7" src="icons/backplayer.svg" alt="">
+                <div class="track-nav flex items-center gap-1 sm:gap-2 ml-auto z-50 flex-shrink-0">
+                    <div class="prev-track p-2 rounded-full hover:bg-white/50 cursor-pointer transition-colors">
+                        <img class="w-5 sm:w-6 opacity-80" src="icons/backplayer.svg" alt="">
                     </div>
-                    <div class="playpause-track">
-                        <img class="w-8" src="icons/play.svg" alt="">
+                    <div class="playpause-track p-2 rounded-full hover:bg-white/50 cursor-pointer transition-colors">
+                        <img class="w-6 sm:w-8 opacity-80" src="icons/play.svg" alt="">
                     </div>
-                    <div class="next-track">
-                        <img class="w-7" style="transform: rotate(180deg);" src="icons/backplayer.svg" alt="">
+                    <div class="next-track p-2 rounded-full hover:bg-white/50 cursor-pointer transition-colors">
+                        <img class="w-5 sm:w-6 rotate-180 opacity-80" src="icons/backplayer.svg" alt="">
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- BACKGROUND -->
-    <div class="background">
-        <div class="one">
-            <div class="container">
-                <div class="envelope-wrapper">
-                    <div class="envelope">
-                        <div class="letter">
-                            <div class="text">
-                                <strong style="font-size: .89rem;">Lucía,</strong>
-                                <p>
-                                    Feliz aniversario de 9 meses, mi amor. Soy muy afortunado por tenerte a mí lado. Eres la persona más increíble del mundo, y cada día me enamoro más de ti. Me encanta todo de ti, tu sonrisa, tu boca tan hermosa, la manera en que siempre sabes cómo hacerme sentir especial. Tu amor y tu apoyo significan más de lo que imaginas, y no hay un solo día en el que no agradezca por tenerte en mi vida. Te amo con todo mi corazón y siempre te amaré.
-                                </p>
-                                <p class="love">Te amo mucho mi amor</p>
-                                <div class="pana">
-                                    <img src="icons/heartarrow.svg" alt="">
-                                </div>
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="flex-grow flex flex-col items-center justify-start w-full max-w-4xl mx-auto pt-24 sm:pt-32 px-4 space-y-4 sm:space-y-8 z-10">
+
+        <!-- ENVELOPE SECTION -->
+        <section class="w-full flex justify-center items-center relative z-20">
+            <div class="envelope-wrapper floating">
+                <div class="envelope">
+                    <div class="letter">
+                        <div class="text">
+                            <strong style="font-size: .89rem;">Lucía,</strong>
+                            <p>
+                                Feliz aniversario de 9 meses, mi amor. Soy muy afortunado por tenerte a mí lado. Eres la persona más increíble del mundo, y cada día me enamoro más de ti. Me encanta todo de ti, tu sonrisa, tu boca tan hermosa, la manera en que siempre sabes cómo hacerme sentir especial. Tu amor y tu apoyo significan más de lo que imaginas, y no hay un solo día en el que no agradezca por tenerte en mi vida. Te amo con todo mi corazón y siempre te amaré.
+                            </p>
+                            <p class="love">Te amo mucho mi amor</p>
+                            <div class="pana">
+                                <img src="icons/heartarrow.svg" alt="">
                             </div>
                         </div>
                     </div>
-                    <div class="heart"></div>
                 </div>
-        </div>
-    </div>
-    <div class="w-full h-[100vh] z-0 relative">
-        <!-- BACKGROUND -->
-    <div class="absolute top-0 w-full h-full flex justify-center items-center">
-        <!-- COUNTER -->
-        <div class="flex bg-neutral-100 gap-5 relative border-2 z-10 border-black flex-col px-5 pb-3 shadow-md pt-9 rounded-md">
-            <!-- GIFS -->
-            <div class="absolute top-1 right-1 w-7">
-                <img class="w-full" src="icons/heart.svg" alt="">
+                <div class="heart"></div>
             </div>
-            <div class="absolute -top-20 -left-56 w-44">
-                <img class="w-full -rotate-6" src="https://media.tenor.com/dg7Th23TzFUAAAAi/cat_-vodk.gif" alt="">
-            </div>
-            <div class="absolute -bottom-3 -right-52 w-44">
-                <img class="w-full" src="https://media.tenor.com/LrSL7XDKVbgAAAAi/peachcat-cat.gif" alt="">
-            </div>
-            <div class="absolute top-[-8rem] z-0 right-28 w-36">
-                <img class="w-full" src="https://media.tenor.com/A5VhCveZ_ygAAAAi/peach-and-goma-peach-goma.gif" alt="">
-            </div>
-            <div class="absolute -bottom-48 z-0 left-16 w-40">
-                <img class="w-full" src="https://media.tenor.com/ewJrc9fZeaQAAAAi/prots-masaj.gif" alt="">
-            </div>
+        </section>
 
-            <!-- DATE COUNTER -->
-            <div class="flex gap-5" id="myCountdown">
-                <div class="bg-transparent border-2 border-black rounded-md w-40 h-52 flex justify-center items-center flex-col gap-10">
-                    <h1 id="years" class="text-6xl font-bold">0</h1>
-                    <p class="font-bold text-xl text-red-700">Año
-                    </p>
+        <!-- COUNTER SECTION -->
+        <section class="w-full flex justify-center relative mt-32 sm:mt-48 pb-32 z-10">
+            <div class="counter-box floating" style="animation-delay: 1s;">
+                <!-- GIFS (Positioned relative to the counter box so they don't break the page layout) -->
+                <div class="absolute -top-6 -right-6 sm:top-1 sm:right-1 w-8 sm:w-10 gif-1 z-20">
+                    <img class="w-full" src="icons/heart.svg" alt="">
                 </div>
-                <div class="bg-transparent border-2 border-black rounded-md w-40 h-52 flex justify-center items-center flex-col gap-10">
-                    <h1 id="months" class="text-6xl font-bold">0</h1>
-                    <p class="font-bold text-xl text-red-700">Mes</p>
+                <!-- Cat on top left -->
+                <div class="absolute -top-24 -left-12 sm:-top-20 sm:-left-32 w-28 sm:w-44 gif-2 gif-animation z-0">
+                    <img class="w-full -rotate-6" src="https://media.tenor.com/dg7Th23TzFUAAAAi/cat_-vodk.gif" alt="">
                 </div>
-                <div class="bg-transparent border-2 border-black rounded-md w-40 h-52 flex justify-center items-center flex-col gap-10">
-                    <h1 id="days" class="text-6xl font-bold">0</h1>
-                    <p class="font-bold text-xl text-red-700">Día</p>
+                <!-- Peach cat on bottom right -->
+                <div class="absolute -bottom-16 -right-10 sm:-bottom-10 sm:-right-40 w-32 sm:w-44 gif-3 gif-animation-delayed z-0">
+                    <img class="w-full" src="https://media.tenor.com/LrSL7XDKVbgAAAAi/peachcat-cat.gif" alt="">
+                </div>
+                <!-- Peach and goma top right -->
+                <div class="absolute -top-20 -right-8 sm:-top-32 sm:-right-20 w-24 sm:w-36 gif-4 gif-animation z-0">
+                    <img class="w-full" src="https://media.tenor.com/A5VhCveZ_ygAAAAi/peach-and-goma-peach-goma.gif" alt="">
+                </div>
+                <!-- Prots masaj bottom left -->
+                <div class="absolute -bottom-24 -left-12 sm:-bottom-32 sm:-left-16 w-28 sm:w-40 gif-5 gif-animation-delayed z-0">
+                    <img class="w-full" src="https://media.tenor.com/ewJrc9fZeaQAAAAi/prots-masaj.gif" alt="">
+                </div>
+
+                <!-- DATE COUNTER -->
+                <div class="countdown-cards relative z-10 bg-white/30 px-6 py-4 sm:px-10 sm:py-6 rounded-full shadow-[0_8px_32px_0_rgba(31,38,135,0.07)] backdrop-blur-md border border-white/60 flex items-center justify-center gap-4 sm:gap-8" id="myCountdown">
+                    <div class="countdown-item flex items-baseline gap-1 sm:gap-2">
+                        <span id="years" class="text-3xl sm:text-5xl font-black text-gray-800">0</span>
+                        <span class="font-bold text-sm sm:text-lg text-pink-600 uppercase tracking-wider drop-shadow-sm">Años</span>
+                    </div>
+                    <div class="w-1 h-8 sm:h-10 bg-white/50 rounded-full"></div>
+                    <div class="countdown-item flex items-baseline gap-1 sm:gap-2">
+                        <span id="months" class="text-3xl sm:text-5xl font-black text-gray-800">0</span>
+                        <span class="font-bold text-sm sm:text-lg text-pink-600 uppercase tracking-wider drop-shadow-sm">Meses</span>
+                    </div>
+                    <div class="w-1 h-8 sm:h-10 bg-white/50 rounded-full"></div>
+                    <div class="countdown-item flex items-baseline gap-1 sm:gap-2">
+                        <span id="days" class="text-3xl sm:text-5xl font-black text-gray-800">0</span>
+                        <span class="font-bold text-sm sm:text-lg text-pink-600 uppercase tracking-wider drop-shadow-sm">Días</span>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </section>
 
-    <script>
-        const envelope = document.querySelector('.envelope-wrapper');
-        envelope.addEventListener('click', () => {
-            envelope.classList.toggle('flap');
-            envelope.classList.toggle('open');
-        });
-    </script>
-    
-    <script src="app.js"></script> 
+    </main>
+
+    <script src="app.js"></script>
 </body>
 </html>
-
-
