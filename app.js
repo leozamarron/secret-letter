@@ -1,187 +1,181 @@
-let anniversary = "2024-12-11";
-let date = new Date(anniversary);
-let dateVal = date.getTime();
-let today = new Date();
-let now = today.getTime();
-let value = now - dateVal;
-let day = Math.floor(value / (1000 * 60 * 60 * 24));
-let month = Math.floor(value / (1000 * 60 * 60 * 24 * 30.4375));
-let year = Math.floor(value / (1000 * 60 * 60 * 24 * 365.25));
+const ANNIVERSARY_DATE = "2024-12-11";
 
-console.log(value);
+class MusicPlayer {
+  constructor() {
+    this.musicContainer = document.querySelector(".music-container");
+    this.togglePlayerBtn = document.querySelector(".toggle-player");
+    this.trackInfo = document.querySelector(".track-info");
+    this.trackName = document.querySelector(".trackname");
+    this.trackArtist = document.querySelector(".trackartist");
+    this.trackNav = document.querySelector(".track-nav");
+    this.playPauseBtn = document.querySelector(".playpause-track");
+    this.nextBtn = document.querySelector(".next-track");
+    this.prevBtn = document.querySelector(".prev-track");
+    this.soundBars = document.querySelector(".sound-bars");
 
-document.getElementById("days").textContent = '0';
-document.getElementById("months").textContent = '3';
-document.getElementById("years").textContent = '0';
+    this.currentTrack = new Audio();
+    this.trackIndex = 0;
+    this.isPlaying = false;
+    this.isHidden = false; // Initially visible
 
+    this.trackList = [
+      { name: "Please don't change", artist: "Jungkook", path: "./music/please don't change.mp3" },
+      { name: "Only", artist: "Lee Hi", path: "./music/only.mp3" },
+      { name: "Day & Night", artist: "Jung Seung Hwan", path: "./music/day and night.mp3" },
+      { name: "Your Song", artist: "Elton John", path: "./music/your song.mp3" },
+      { name: "Personajes", artist: "Los Claxons", path: "./music/personajes.mp3" }
+    ];
 
-let musicPlayer = document.querySelector(".music-container");
-let togglePlayer = document.querySelector(".toggle-player");
+    this.soundBarsLottie = window.bodymovin?.loadAnimation({
+      container: this.soundBars,
+      renderer: "svg",
+      loop: true,
+      autoplay: false,
+      path: "https://lottie.host/9ec12a7e-e429-453a-9f22-a2af1dcb4dca/2zeuy4rwtP.json",
+    });
 
-let trackInfo = document.querySelector(".track-info");
-let trackName = document.querySelector(".trackname");
-let trackArtist = document.querySelector(".trackartist");
-let trackNav = document.querySelector(".track-nav");
+    this.init();
+  }
 
-let playPauseBtn = document.querySelector(".playpause-track");
-let nextBtn = document.querySelector(".next-track");
-let prevBtn = document.querySelector(".prev-track");
+  init() {
+    this.bindEvents();
+    this.loadTrack(this.trackIndex);
+  }
 
-let trackIndex = 0;
-let isPlaying = false;
-let isHidden = true;
+  bindEvents() {
+    this.togglePlayerBtn.addEventListener("click", () => this.togglePlayer());
+    this.playPauseBtn.addEventListener("click", () => this.togglePlayPause());
+    this.nextBtn.addEventListener("click", () => this.nextTrack());
+    this.prevBtn.addEventListener("click", () => this.prevTrack());
+    this.currentTrack.addEventListener("ended", () => this.nextTrack());
+  }
 
-let currentTrack = document.createElement("audio");
-let soundBars = document.querySelector(".sound-bars");
-
-togglePlayer.addEventListener("click", function() {
-    isHidden = !isHidden;
-    if(isHidden){
-        musicPlayer.classList.remove("hide");
-        togglePlayer.innerHTML = '<img class="w-[98%]" src="icons/close.svg">';
-        trackInfo.style.transitionDelay = "0.4s";
-        trackNav.style.transitionDelay = "0.4s";
+  togglePlayer() {
+    this.isHidden = !this.isHidden;
+    if (this.isHidden) {
+      this.musicContainer.classList.add("hide");
+      this.togglePlayerBtn.innerHTML = '<img class="w-[98%]" src="icons/plus.svg" alt="Expand">';
+      this.trackInfo.style.transitionDelay = "0s";
+      this.trackNav.style.transitionDelay = "0s";
     } else {
-        musicPlayer.classList.add("hide");
-        togglePlayer.innerHTML = '<img class="w-full" src="icons/plus.svg">';
-        trackInfo.style.transitionDelay = "0s";
-        trackNav.style.transitionDelay = "0s";
+      this.musicContainer.classList.remove("hide");
+      this.togglePlayerBtn.innerHTML = '<img class="w-[98%]" src="icons/close.svg" alt="Close">';
+      this.trackInfo.style.transitionDelay = "0.4s";
+      this.trackNav.style.transitionDelay = "0.4s";
     }
-});
+  }
 
-let soundBarsLottie = bodymovin.loadAnimation({
-    container: soundBars,
-    renderer: "svg",
-    loop: true,
-    autoPLay: false,
-    path: "https://lottie.host/9ec12a7e-e429-453a-9f22-a2af1dcb4dca/2zeuy4rwtP.json",
-});
+  loadTrack(index) {
+    const track = this.trackList[index];
+    this.currentTrack.src = track.path;
+    this.trackName.textContent = track.name;
+    this.trackArtist.textContent = track.artist;
+    this.currentTrack.load();
+  }
 
+  togglePlayPause() {
+    if (this.isPlaying) {
+      this.pauseTrack();
+    } else {
+      this.playTrack();
+    }
+  }
 
-let trackList = [
-    {
-        name: "Please don't change",
-        artist: "Jungkook",
-        path: "./music/please don't change.mp3",
-    },
-    {
-        name: "Only",
-        artist: "Lee Hi",
-        path: "./music/only.mp3",
-    },
-    {
-        name: "Day & Night",
-        artist: "Jung Seung Hwan",
-        path: "./music/day and night.mp3",
-    },
-    {
-        name: "Your Song",
-        artist: "Elton John",
-        path: "./music/your song.mp3",
-    },
-    {
-        name: "Personajes",
-        artist: "Los Claxons",
-        path: "./music/personajes.mp3",
-    },
-];
+  playTrack() {
+    this.currentTrack.play();
+    this.isPlaying = true;
+    this.playPauseBtn.innerHTML = '<img class="w-8" src="icons/pause.svg" alt="Pause">';
+    if (this.soundBarsLottie) this.soundBarsLottie.play();
+  }
 
-// EVENT LISTENERS
-playPauseBtn.addEventListener("click", playPauseTrack);
-nextBtn.addEventListener("click", nextTrack);
-prevBtn.addEventListener("click", prevTrack);
+  pauseTrack() {
+    this.currentTrack.pause();
+    this.isPlaying = false;
+    this.playPauseBtn.innerHTML = '<img class="w-8" src="icons/play.svg" alt="Play">';
+    if (this.soundBarsLottie) this.soundBarsLottie.stop();
+  }
 
-function loadTrack(trackIndex){
-    currentTrack.src = trackList[trackIndex].path;
-    trackName.textContent = trackList[trackIndex].name;
-    trackArtist.textContent = trackList[trackIndex].artist;
-    currentTrack.addEventListener("ended", nextTrack);
-    currentTrack.load();
+  nextTrack() {
+    this.trackIndex = (this.trackIndex + 1) % this.trackList.length;
+    this.loadTrack(this.trackIndex);
+    this.playTrack();
+  }
+
+  prevTrack() {
+    this.trackIndex = (this.trackIndex - 1 + this.trackList.length) % this.trackList.length;
+    this.loadTrack(this.trackIndex);
+    this.playTrack();
+  }
 }
 
-loadTrack(trackIndex);
+class AnniversaryCounter {
+  constructor(anniversaryDateString) {
+    this.anniversaryDate = new Date(anniversaryDateString);
+    this.daysEl = document.getElementById("days");
+    this.monthsEl = document.getElementById("months");
+    this.yearsEl = document.getElementById("years");
 
-function updateAnniversaryCounter() {
-    const anniversary = new Date("2024-12-11");
+    this.init();
+  }
+
+  init() {
+    this.updateCounter();
+    setInterval(() => this.updateCounter(), 1000 * 60 * 60 * 24);
+  }
+
+  updateCounter() {
     const today = new Date();
 
-    // Calcular diferencia en milisegundos
-    const diffTime = today.getTime() - anniversary.getTime();
-
-    // Calcular diferencia exacta en días
-    const diffDate = new Date(diffTime);
-
-    // Cálculo más preciso de años, meses, días
-    let years = today.getFullYear() - anniversary.getFullYear();
-    let months = today.getMonth() - anniversary.getMonth();
-    let days = today.getDate() - anniversary.getDate();
+    let years = today.getFullYear() - this.anniversaryDate.getFullYear();
+    let months = today.getMonth() - this.anniversaryDate.getMonth();
+    let days = today.getDate() - this.anniversaryDate.getDate();
 
     if (days < 0) {
-        months--;
-        let prevMonth = new Date(today.getFullYear(), today.getMonth(), 0);
-        days += prevMonth.getDate();
+      months--;
+      const prevMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+      days += prevMonth.getDate();
     }
 
     if (months < 0) {
-        years--;
-        months += 12;
+      years--;
+      months += 12;
     }
 
-    // Actualizar el contenido del DOM
-    document.getElementById("days").textContent = days;
-    document.getElementById("months").textContent = months;
-    document.getElementById("years").textContent = years;
+    if (this.daysEl) this.daysEl.textContent = days;
+    if (this.monthsEl) this.monthsEl.textContent = months;
+    if (this.yearsEl) this.yearsEl.textContent = years;
+  }
 }
 
+class EnvelopeAnimation {
+  constructor() {
+    this.envelopeWrapper = document.querySelector(".envelope-wrapper");
+    this.envelope = document.querySelector(".envelope");
+    this.init();
+  }
 
-updateAnniversaryCounter();
+  init() {
+    if (this.envelopeWrapper) {
+      this.envelopeWrapper.addEventListener("click", (e) => {
+        // Toggle if we click the envelope itself, or the heart
+        if (e.target.closest(".envelope") || e.target.classList.contains("heart")) {
+          this.envelopeWrapper.classList.toggle("flap");
+        }
+      });
 
-
-setInterval(updateAnniversaryCounter, 1000 * 60 * 60 * 24); // Cada 24h
-
-
-function playPauseTrack(){
-    if(isPlaying == false){
-        playTrack();
-    }else{
-        pauseTrack();
+      // Let letter scroll without toggling the envelope if clicked inside it
+      const letter = this.envelopeWrapper.querySelector(".letter");
+      if(letter) {
+         letter.addEventListener("click", (e) => {
+            e.stopPropagation();
+         });
+      }
     }
+  }
 }
 
-function playTrack(){
-    currentTrack.play();
-    isPlaying = true;
-    playPauseBtn.innerHTML = '<img class="w-8" src="icons/pause.svg">';
-    soundBarsLottie.play();
-}
-
-function pauseTrack(){
-    currentTrack.pause();
-    isPlaying = false;
-    playPauseBtn.innerHTML = '<img class="w-8" src="icons/play.svg">';
-    soundBarsLottie.stop();
-}
-
-function nextTrack(){
-    if(trackIndex < trackList.length - 1){
-        trackIndex += 1;
-        loadTrack(trackIndex);
-        playTrack();
-    }else{
-        trackIndex = 0;
-        loadTrack(trackIndex);
-        playTrack();
-    } 
-}
-
-function prevTrack(){
-    if(trackIndex > 0){
-        trackIndex -= 1;
-        loadTrack(trackIndex);
-        playTrack();
-    }else{
-        trackIndex = trackList.length - 1;
-        loadTrack(trackIndex);
-        playTrack();
-    }
-}
+document.addEventListener("DOMContentLoaded", () => {
+  new AnniversaryCounter(ANNIVERSARY_DATE);
+  new MusicPlayer();
+  new EnvelopeAnimation();
+});

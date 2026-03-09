@@ -1,256 +1,333 @@
-*{
-    margin: 0;
-    padding: 0;
+:root {
+  --primary: #fff;
+  --bg-color: #fdf2f8; /* Soft pink background */
+  --bg-envelope-color: #fce7f3;
+  --envelope-tab: #fbcfe8;
+  --envelope-cover: #f9a8d4;
+  --shadow-color: rgba(0, 0, 0, 0.15);
+  --txt-color: #4b5563;
+  --heart-color: #f43f5e;
+
+  --env-width: 500px;
+  --env-height: 240px;
 }
 
-:root{
-    --primary: #fff;
-    --bg-envelope-color: #f5edd1;
-    --envelope-tab: #ecdeb8;
-    --envelope-cover: #e6cfa7;
-    --shadow-color: rgba(0, 0, 0, 0.2);
-    --txt-color: #444;
-    --heart-color: rgb(252, 8, 231);
+@media (max-width: 600px) {
+  :root {
+    --env-width: 300px;
+    --env-height: 180px;
   }
-  .one{
-    background-color: #cccccc;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    background: var(--bg-color);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-  }
+}
 
-  .background{
-    height: 100vh;
-    width: 100%;
-    position: relative;
-  }
-  .one{
-    width: 100%;
-    height: 100%;
-  }
-  .background img{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  
-  .container {
-    height: 100%;
-    width: 100%;
-    top: 1.5rem;
-    display: grid;
-    position: absolute;
-    place-items: center;
-  }
-  .container > .envelope-wrapper {
-    background: var(--bg-envelope-color);
-    box-shadow: 0 0 40px var(--shadow-color);
-  }
-  .envelope-wrapper > .envelope {
-    position: relative;
-    width: 500px;
-    height: 240px;
-  }
-  .envelope-wrapper > .envelope::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    z-index: 2;
-    border-top: 150px solid var(--envelope-tab);
-    border-right: 250px solid transparent;
-    border-left: 250px solid transparent;
-    transform-origin: top;
-    transition: all 0.5s ease-in-out 0.7s;
-  }
-  .envelope-wrapper > .envelope::after {
-    content: "";
-    position: absolute;
-    z-index: 2;
-    width: 0px;
-    height: 0px;
-    border-top: 150px solid transparent;
-    border-right: 250px solid var(--envelope-cover);
-    border-bottom: 100px solid var(--envelope-cover);
-    border-left: 250px solid var(--envelope-cover);
-  }
-  .envelope > .letter {
-    position: absolute;
-    right: 20%;
-    bottom: 0;
-    width: 60%;
-    height: 98%;
-    background: var(--primary);
-    text-align: center;
-    transition: all 1s ease-in-out;
-    box-shadow: 0 0 5px var(--shadow-color);
-    padding: 15px 15px 50px 15px;
-  }
-  
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-color);
+  font-family: 'Comic Neue', sans-serif;
+  /* Add subtle background pattern or gradient if desired, keeping it soft pink */
+}
+
+/* Floating animation */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.floating {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* Envelope Container */
+.envelope-wrapper {
+  background: var(--bg-envelope-color);
+  box-shadow: 0 10px 40px var(--shadow-color);
+  border-radius: 8px;
+  position: relative;
+  z-index: 10;
+  cursor: pointer;
+  margin: 0 auto;
+}
+
+.envelope-wrapper > .envelope {
+  position: relative;
+  width: var(--env-width);
+  height: var(--env-height);
+  border-radius: 8px;
+}
+
+.envelope-wrapper > .envelope::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  z-index: 3;
+  width: 0;
+  height: 0;
+  box-sizing: content-box;
+  border-top: calc(var(--env-height) * 0.6) solid var(--envelope-tab);
+  border-right: calc(var(--env-width) / 2) solid transparent;
+  border-left: calc(var(--env-width) / 2) solid transparent;
+  transform-origin: top;
+  transition: all 0.5s ease-in-out 0.2s;
+}
+
+.envelope-wrapper > .envelope::after {
+  content: "";
+  position: absolute;
+  z-index: 3;
+  width: 0px;
+  height: 0px;
+  box-sizing: content-box;
+  border-top: calc(var(--env-height) * 0.6) solid transparent;
+  border-right: calc(var(--env-width) / 2) solid var(--envelope-cover);
+  border-bottom: calc(var(--env-height) * 0.4) solid var(--envelope-cover);
+  border-left: calc(var(--env-width) / 2) solid var(--envelope-cover);
+  border-radius: 0 0 8px 8px;
+}
+
+.envelope > .letter {
+  position: absolute;
+  right: 15%;
+  bottom: 0;
+  width: 70%;
+  height: 90%;
+  background: var(--primary);
+  text-align: center;
+  transition: all 1s ease-in-out;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  padding: 16px;
+  padding-bottom: 40px;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  pointer-events: none;
+  z-index: 2; /* Letter is behind front cover but inside envelope */
+}
+
+.envelope > .letter > .text {
+  color: var(--txt-color);
+  text-align: left;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+@media (max-width: 600px) {
   .envelope > .letter > .text {
-    font-family: 'Comic Neue';
-    color: var(--txt-color);
-    text-align: left;
-    font-size: 12px;
+    font-size: 9px;
+    padding: 0px;
+    padding-bottom: 25px;
+    line-height: 1.4;
   }
-  .heart {
-    position: absolute;
-    top: 51%;
-    left: 50%;
-    width: 30px;
-    height: 30px;
-    background: rgb(255, 131, 151);
-    z-index: 4;
-    transform: translate(-50%, -20%) rotate(45deg);
-    transition: transform 0.5s ease-in-out 1s;
-    box-shadow: 0 1px 6px var(--shadow-color);
-    cursor: pointer;
-  }
-  .heart:before, 
-  .heart:after {
-    content: "";
-    position: absolute;
-    width: 30px;
-    height: 30px;
-    background-color: rgb(255, 131, 151);
-    border-radius: 50%;
-  }
-  .heart:before {
-    top: -15.5px;
-  }
-  .heart:after {
-    right: 15.5px;
-  }
-  .flap > .envelope:before {
-    transform: rotateX(180deg);
-    z-index: 0;
-  }
+}
+
+.heart {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 30px;
+  height: 30px;
+  background: var(--heart-color);
+  z-index: 4;
+  transform: translate(-50%, -20%) rotate(45deg);
+  transition: transform 0.5s ease-in-out 1s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  cursor: pointer;
+}
+
+.heart:before,
+.heart:after {
+  content: "";
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background-color: var(--heart-color);
+  border-radius: 50%;
+}
+.heart:before {
+  top: -15.5px;
+}
+.heart:after {
+  right: 15.5px;
+}
+
+/* Flap Open States */
+.flap > .envelope:before {
+  transform: rotateX(180deg);
+  z-index: 1; /* Keep it behind the letter but behind the envelope cover when open */
+  transition: all 0.5s ease-in-out; /* opens fast */
+}
+
+.flap > .envelope > .letter {
+  bottom: calc(var(--env-height) * 0.85);
+  transform: scale(1.4);
+  transition-delay: 0.5s; /* Wait for flap to open before coming out */
+  z-index: 2; /* Slide out from inside the envelope (which is z-index 3) */
+  overflow-y: auto;
+  pointer-events: auto;
+}
+
+@media (max-width: 600px) {
   .flap > .envelope > .letter {
-    bottom: 200px;
-    transform: scale(1.5);
-    transition-delay: 1s;
+    bottom: calc(var(--env-height) * 0.65); /* Keeps it on-screen and lower */
+    transform: scale(1.2);
   }
-  .flap > .heart {
-    transform: rotate(90deg);
-    transition-delay: 0.4s;
-  }
-  .love{
-    text-align: center;
-    font-weight: bold;
-  }
-  .pana{
-    width: 100%;
-    margin-top: .3rem;
-  }
-  .pana img{
-    width: 1.5rem;
-    margin: auto;
+}
+
+.flap > .heart {
+  transform: rotate(90deg);
+  transition-delay: 0.4s;
+}
+
+.love {
+  text-align: center;
+  font-weight: bold;
+  color: var(--heart-color);
+  margin-top: 10px;
+}
+
+.pana {
+  width: 100%;
+  margin-top: 0.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.pana img {
+  width: 2rem;
+}
+
+/* Counter Box Styles */
+.counter-box {
+
+
+  border-radius: 16px;
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+
+  max-width: 90vw;
+}
+
+
+
+
+
+@media (max-width: 600px) {
+  .counter-box {
+    padding: 1rem;
   }
 
-  #window #gif img{
-    opacity: 0;
-    transition: opacity .3s, width .3s;
-    width: 5rem;
-  }
-  #gif{
-    pointer-events: none;
-  }
 
-  #window:hover #gif img{
-    opacity: 1;
-    width: 11rem;
-  }
+}
 
-  .music-container{
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 500px;
-    z-index: 1;
-    transition: all 0.75s cubic-bezier(0.075, 0.82, 0.165, 1);
-  }
+/* Music Player Styles */
+.music-container {
+  transition: all 0.5s ease-in-out;
+  transform-origin: bottom left;
+}
 
-  .player{
-    display: flex;
-    justify-content: end;
-    align-items: center;
-    width: 100%;
-    height: 70px;
-  }
+.music-container.hide {
+  width: 70px !important;
+  height: 70px !important;
+  border-radius: 50% !important;
+  overflow: hidden;
+  padding: 0 !important;
+  background-color: #fff !important;
+  border-color: #000 !important;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+}
 
-  .track-info{
-    position: absolute;
-    top: 0;
-    left: -.3rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    width: 100%;
-    transition: all .25s ease;
-  }
+.music-container.hide .player,
+.music-container.hide .toggle-player,
+.music-container.hide .sound-bars-lottie {
+  display: none !important;
+  opacity: 0;
+  pointer-events: none;
+}
 
-  .trackname{
-    font-size: 1.5rem;
-    font-weight: bold;
-    pointer-events: none;
-  }
-  .trackartist{
-    font-size: .8rem;
-    pointer-events: none;
-  }
-  .track-nav{
-    gap: .2rem;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    transition: all .25s ease;
-  }
+.music-container.hide .avatar {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  width: 40px !important;
+  height: 40px !important;
+  margin: 0 !important;
+}
 
-  .music-container.hide {
-    width: 140px;
-  }
+.music-container.hide .avatar img {
+  border-radius: 50% !important;
+  border: none !important;
+  box-shadow: none !important;
+}
 
-  .music-container.hide .track-info,
-  .music-container.hide .track-nav {
-    transition: all 0s ease;
-    opacity: 0;
-  }
+.toggle-player {
+  position: absolute;
+  right: -0.75rem;
+  top: -0.75rem;
+  width: 1.75rem;
+  height: 1.75rem;
+  z-index: 20;
+  border-radius: 50%;
+  cursor: pointer;
+  background: white;
+  transition: transform 0.2s ease;
+}
+.toggle-player:hover {
+  transform: scale(1.1);
+}
 
-  .toggle-player{
-    position: absolute;
-    right: -1rem;
-    top: -1rem;
-    width: 2rem;
-    z-index: 2;
-    border-radius: 100%;
-    cursor: pointer;
-  }
+.sound-bars {
+  width: 50px;
+  height: 50px;
+}
 
-  .sound-bars-lottie{
-    position: absolute;
-    top: 1.1rem;
-    left: 4.5rem;
-  }
-  .sound-bars{
-    width: 100%;
-    width: 60px;
-    height: 60px;
-  }
-  .prev-track, .playpause-track, .next-track{
-    cursor: pointer;
-    z-index: 100;
-    border-radius: 100%;
-    padding: .3rem;
-  }
+/* GIF Animations */
+.gif-animation {
+  animation: float 6s ease-in-out infinite;
+}
+.gif-animation-delayed {
+  animation: float 6s ease-in-out 3s infinite;
+}
 
-  .prev-track:hover, .playpause-track:hover, .next-track:hover{
-    background-color: rgb(190, 190, 190);
-    transition-duration: .5s;
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+.trackname {
+  animation: marquee 10s linear infinite;
+  display: inline-block;
+  padding-left: 100%;
+}
+@media (min-width: 600px) {
+  .trackname {
+    animation: none;
+    padding-left: 0;
+    display: block;
   }
+}
+
+/* When the envelope is open (flap class added), move the whole envelope down slightly
+   so the letter doesn't get cut off at the top of the screen */
+.envelope-wrapper {
+  transition: transform 0.6s ease-in-out;
+}
+
+.envelope-wrapper.flap {
+  transform: translateY(60px);
+}
+
+@media (max-width: 600px) {
+  .envelope-wrapper.flap {
+    transform: translateY(40px);
+  }
+}
