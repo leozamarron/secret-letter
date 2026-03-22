@@ -174,8 +174,14 @@ class EnvelopeAnimation {
   }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  new AnniversaryCounter(ANNIVERSARY_DATE);
-  new MusicPlayer();
-  new EnvelopeAnimation();
-});
+if (typeof document !== "undefined" && document.addEventListener) {
+  document.addEventListener("DOMContentLoaded", () => {
+    new AnniversaryCounter(ANNIVERSARY_DATE);
+    new MusicPlayer();
+    new EnvelopeAnimation();
+  });
+}
+
+if (typeof module !== "undefined" && module.exports) {
+  module.exports = { MusicPlayer, AnniversaryCounter, EnvelopeAnimation };
+}
